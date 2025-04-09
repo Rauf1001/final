@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Сайт-Алиева Рауфа</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        document.cookie = "username=Rauf; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        console.log("Cookie set: " + document.cookie);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            checkNotificationCookie();
+
+            
+        });
+        // Функция для получения куки
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function restoreState() {
+            const usernameBackup = localStorage.getItem("usernameBackup");
+            if (usernameBackup) {
+                setCookie("username", usernameBackup, 365);
+                console.log("Cookie restored: " + document.cookie);
+            } else {
+                console.log("No backup found for cookie.");
+            }
+        }
+
+        // Функция для удаления куки
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+            document.cookie = 'elementTop=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = 'elementLeft=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = 'number=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = 'notificationHidden=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            
+            
+        }
+
+        // Устанавливаем куки при заходе на сайт
+        window.onload = function() {
+            if (!getCookie("userInfo")) {
+                setCookie("userInfo", "someUserInformation", 7); // Куки будет храниться 7 дней
+                setCookie('notificationHidden', 'true', 1); 
+            }
+        };
+
+        // Обработчик нажатия на кнопку "очистить"
+        function clearCookies() {
+            
+            const cookies = document.cookie.split(";");
+
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                const eqPos = cookie.indexOf("=");
+                const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+            }
+            alert("Куки очищены!");
+            
+        }
+
+        
+       
+    </script>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title-block">
+                <h1>Frontend Developer Aliev Rauf</h1>
+            </div>
+            <div class="userpic"></div>
+        </div>
+    
+        <div class="nav">
+            <ul>
+                <li><a href="index.html" id="tab1" onclick="switchTab('tab1')">Главная страница</a></li>
+                <li><a href="2About Me.html" id="tab2" onclick="switchTab('tab2')" >Обо мне</a></li>
+                <li><a href="3Add.html" id="tab3" onclick="switchTab('tab3')" >Контакты</a></li>
+                <li><a href="cabinet.php" >Вход в Личный Кабинет</a></li>
+            </ul>
+            
+        </div>
+
+        <div class="content-wrapper">
+            <div class="content">
+                <h3>Главная</h3>
+                <p>
+                    Это сайт разработанный Алиевым Рауфом на html в связке с css. Используется в body враппер, который содержит в себе главное меню и фотки, а также "футер". 
+                    По факту это сайт визитка, который больше функции доноса информации практически не выполняет, но возможно в дальнейшем будет развиваться и получит реализацию сложных анимаций и улучшенное оформление.
+                    Также я считаю, что сайты должны быть нисколько прегруженными ради дизайнерских решений, а минимилистичными и простыми, чтобы внимание пользователя правильно распределялось и ему было все понятно.
+                    Мой код html занимает не больше 60 строк и в нем сможет разобраться каждый человек, который обладает базовыми знаниями синтаксиса, потому что читаемость кода, я считаю также важная часть в реализации проекта.
+                    </p>
+            </div>
+            
+            
+        </div>
+
+        <div class="cookie-block">
+            <div class="notification">
+                This website uses cookies to ensure you get the best experience on our website.
+                <button id="myButton" >Got it!</button>
+
+                <script>
+                    const button = document.getElementById('myButton');
+
+                    button.addEventListener('click', function() { 
+                         hideNotification()
+                     } , {once : true});
+                </script>
+              </div>
+            <form method="POST">
+                <div>name: <input type="text" name="name" id="signup-name"></div>
+                <div>password: <input type="text" name="pass" id="signup-pass"></div>
+                <div>email: <input type="text" name="email" id="signup-email"></div>
+                <div>birthday: <input type="text" name="birthday" id="signup-birthday"></div>
+                <div>sex:
+                    <div> <input type="radio" value="male" name="sex" checked class="sex">male</div>
+                    <div><input type="radio" value="female" name="sex" class="sex">female</div>
+                    <div><input type="radio" value="other" name="sex" class="sex">other</div>
+                </div>
+                <input type="submit" value="send" id="signup-submit">
+            </form>
+            <hr>
+            <form method="POST">
+                <div>email: <input type="text" name="email" id="login-email"></div>
+                <div>password: <input type="text" name="pass" id="login-pass"></div>
+                <input type="submit" value="login" id="login-submit">
+            </form>
+        
+            
+            <hr>
+            <li>
+                <h1>Изменение состояния в cookies</h1>
+                <button onclick="clearCookies()">Очистить </button>
+            </li>
+            <hr>
+            <li> <div><p>Увеличить число:</p>
+                <button onclick="increaseNumber()">+</button>
+                <p id="number">0</p>
+                <p>Поменять цвет:</p>
+                <button onclick="changeColor()">Поменять</button></div>
+                
+                </li>
+        </div>
+        
+        <script src="script/ajax.js"></script>
+        <script src="script/script.js"></script>
+        
+        <script src="main.js"></script>
+
+
+
+        
+        <div class="footer">
+            <ul>
+                <li><a href="https://t.me/rauf_1_0"><img src="images/icons8-телеграмма-app-100.png" alt="" height="50" width="50"></a></li>
+                <li><a href="mailto:raufsaliev1@gmail.com"> <img src="images/icons8-gmail-100.png" alt="" height="50" width="50"></a></li>
+            </ul>
+            <p class="copyright">Company Rauf © 2024</p>
+        </div>
+            
+        
+    </div>
+
+</body> 
+
+
+
+
+</html>
